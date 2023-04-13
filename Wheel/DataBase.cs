@@ -10,8 +10,8 @@ namespace Wheel
 {
     public class DataBase : IDisposable
     {
-        private string _connectionString = @"Data Source=DESKTOP-AVGELME\STP;Initial Catalog=wheels;Integrated Security=True";
-        private SqlConnection _connection;
+        private string _connectionString = @"Data Source=DESKTOP-A9MP2FF\SQLEXPRESS;Initial Catalog=wheels;Integrated Security=True";
+        public SqlConnection _connection;
 
         public DataBase()
         {

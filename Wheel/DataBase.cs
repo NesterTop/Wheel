@@ -10,6 +10,7 @@ namespace Wheel
 {
     public class DataBase : IDisposable
     {
+        public bool isConnected;
         private string _connectionString = @"Data Source=DESKTOP-A9MP2FF\SQLEXPRESS;Initial Catalog=wheels;Integrated Security=True";
         public SqlConnection _connection;
 
@@ -22,11 +23,13 @@ namespace Wheel
         private void OpenConnection()
         {
             _connection.Open();
+            isConnected = true;
         }
 
         private void CloseConnection()
         {
             _connection.Close();
+            isConnected = false;
         }
 
         public DataTable ExecuteSql(string sql)
@@ -38,10 +41,18 @@ namespace Wheel
             return table;
         }
 
-        public void ExecuteNonQuery(string sql)
+        public bool ExecuteNonQuery(string sql)
         {
-            SqlCommand command = new SqlCommand(sql, _connection);
-            command.ExecuteNonQuery();
+            try
+            {
+                SqlCommand command = new SqlCommand(sql, _connection);
+                command.ExecuteNonQuery();
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
         }
 
         public void Dispose()

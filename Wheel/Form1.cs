@@ -44,9 +44,17 @@ namespace Wheel
             db.Dispose();
         }
 
-        public void SetSource(DataTable dt)
+        public bool SetSource(DataTable dt)
         {
-            dataGridView1.DataSource = dt;
+            try
+            {
+                dataGridView1.DataSource = dt;
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
         }
 
         private void поставщикиToolStripMenuItem_Click(object sender, EventArgs e)
@@ -86,14 +94,26 @@ namespace Wheel
         {
             new AddMaterial().Show();
         }
+        public bool UpdateTables()
+        {
+            try
+            {
+                ma.Update(Table.Material);
+                pr.Update(Table.Product);
+                su.Update(Table.Supplier);
 
+                SetSource(Table.Material);
+
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
         private void button2_Click(object sender, EventArgs e)
         {
-            ma.Update(Table.Material);
-            pr.Update(Table.Product);
-            su.Update(Table.Supplier);
-
-            SetSource(Table.Material);
+            UpdateTables();
         }
 
         private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)

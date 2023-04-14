@@ -40,7 +40,7 @@ namespace Wheel
 
         private void monthCalendar1_DateChanged(object sender, DateRangeEventArgs e)
         {
-            textBox3.Text = monthCalendar1.TodayDate.ToShortDateString();
+            textBox3.Text = e.Start.ToShortDateString();
         }
     }
 }
